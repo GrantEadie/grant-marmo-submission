@@ -48,4 +48,12 @@ describe Artist do
         expect(artist.details[:top_genres]).to(eq(["Electronic", "Experimental", "Pop"]))
       end
     end
+
+    context 'when set_featured_song is called' do 
+      it('will set the artist featured song to user input') do 
+        artist.add_song(song1)
+        artist.set_featured_song("Bluish")
+        expect(artist.details[:featured_song_id]).to eq song1.id
+      end
+    end
 end
