@@ -1,3 +1,5 @@
+require('uuid')
+
 class Artist
-  # do something
+  def initialize(name)
 end
