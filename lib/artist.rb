@@ -28,4 +28,12 @@ class Artist
       songs: @songs
     }
   end
+
+  def add_song(song)
+    @song_count += 1
+    @genres.push(song.details[:genre])
+    set_top_genres
+    @songs.push(song)
+  end
+  
 end
