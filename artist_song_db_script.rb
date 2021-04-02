@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require('./lib/artist')
-require('./lib/artist')
+require('./lib/song')
 
 # State Holders
 run_app = true
@@ -64,11 +64,34 @@ while run_app
   if user_option == '1' 
     artist_name = ""
     while artist_name == ""
-      puts "\n  You selected MAKE A NEW ARTIST \n\nArtist Name: \n"
+      puts _selected_artist
       artist_name = gets.chomp
       artist_db.push(Artist.new(artist_name))
-      puts "\n\n\n" + _success + " You created a new artist called " + "#{artist_name}"
+      puts "\n\n\n" + _success + _created_artist + artist_name
     end
   end
+
+  if user_option == '2'
+    song_name = ""
+    while song_name == ""
+      puts _selected_song
+      song_name = gets.chomp
+      puts "\nSong Artist: \n"
+      song_artist = gets.chomp
+      puts "\nSong Genre: \n"
+      song_genre = gets.chomp
+      new_song = Song.new(song_name, song_artist, song_genre)
+      song_db.push(new_song)
+
+      artist_db.each do |artist|
+        if song_artist == artist.details[:name]
+          artist.add_song(new_song)
+        end
+      end
+      puts "\n\n\n" + _success + _created_song + song_name
+    end
+  end
+
+  # Make a new song
 
 end
