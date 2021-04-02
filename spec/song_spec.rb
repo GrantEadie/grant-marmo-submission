@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative 'song'
+require('song.rb') 
 
 describe Song do
 end

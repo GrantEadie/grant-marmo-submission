@@ -3,6 +3,8 @@ require('uuid')
 class Artist
   def initialize(name)
 
+    uuid = UUID.new
+
     @id = uuid.generate
     @name = name
     @song_count = 0
@@ -25,4 +27,5 @@ class Artist
       featured_song_id: @featured_song_id,
       songs: @songs
     }
+  end
 end
