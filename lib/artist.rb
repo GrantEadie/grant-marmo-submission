@@ -52,4 +52,12 @@ class Artist
     @songs.push(song)
   end
 
+  def set_featured_song(song_name)
+    @songs.each do |song|
+      if song.details[:name] == song_name
+        @featured_song_id = song.id
+      end
+    end
+  end
+
 end
