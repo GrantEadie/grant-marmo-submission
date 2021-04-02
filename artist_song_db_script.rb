@@ -31,3 +31,32 @@ _enter_song_name = "\n Please enter the name of the song you want to view"
 _enter_artist_for_feature = "\n Select the artist you want to change the featured song of. \n\n Artist Name: "
 _enter_song_for_feature = "\n select a song for a feature"
 
+
+while run_app 
+  
+  user_option = ""
+  
+  while user_option != '1' && 
+        user_option != '2' &&
+        user_option != '3' &&
+        user_option != '4' &&
+        user_option != '5' &&
+        user_option != '6' &&
+        user_option != '7' &&
+        user_option != '8' 
+    
+    puts _welcome
+
+    puts  _option_one + 
+          _option_two + 
+          _option_three + 
+          _option_four + 
+          _option_five + 
+          _option_six + 
+          _option_seven + 
+          _option_eight
+
+        user_option = gets.chomp
+  end
+
+end
