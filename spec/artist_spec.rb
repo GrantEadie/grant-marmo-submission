@@ -5,6 +5,11 @@ require('song.rb')
 describe Artist do
   let(:artist) { Artist.new("Animal Collective")}
   let(:song1) { Song.new("Bluish", "Animal Collective", "Experimental")}
+  let(:song2) {Song.new("My Girls", "Animal Collective", "Electronic")}
+  let(:song3) {Song.new("No More Runnin", "Animal Collective", "Pop")}
+  let(:song4) {Song.new("Grass", "Animal Collective", "Electronic")}
+  let(:song5) {Song.new("Banshee Beat", "Animal Collective", "Experimental")}
+  let(:song6) {Song.new("Lion in a Coma", "Animal Collective", "Electronic")}
   
   context 'artist class is instantiated' do 
     it('will create a uuid for the artist id') do 
@@ -29,6 +34,18 @@ describe Artist do
         :songs => [song1],
         :genres => ["Experimental"]
       }))
+      end
+    end
+
+    context 'when adding songs to an artist' do 
+      it('will sort the most common genres in the artist genre array') do 
+        artist.add_song(song1)
+        artist.add_song(song2)
+        artist.add_song(song3)
+        artist.add_song(song4)
+        artist.add_song(song5)
+        artist.add_song(song6)
+        expect(artist.details[:top_genres]).to(eq(["Electronic", "Experimental", "Pop"]))
       end
     end
 end
