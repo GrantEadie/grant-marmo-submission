@@ -36,6 +36,7 @@ while run_app
   
   user_option = ""
   
+  # User options
   while user_option != '1' && 
         user_option != '2' &&
         user_option != '3' &&
@@ -57,6 +58,17 @@ while run_app
           _option_eight
 
         user_option = gets.chomp
+  end
+
+  # Make a new artist
+  if user_option == '1' 
+    artist_name = ""
+    while artist_name == ""
+      puts "\n  You selected MAKE A NEW ARTIST \n\nArtist Name: \n"
+      artist_name = gets.chomp
+      artist_db.push(Artist.new(artist_name))
+      puts "\n\n\n" + _success + " You created a new artist called " + "#{artist_name}"
+    end
   end
 
 end
