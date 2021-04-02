@@ -17,6 +17,12 @@ class Song
     return @id
   end
 
+  def set_top_genres
+    @top_genres = []
+    genre_count = Hash.new(0)
+    #MORE TO THIS
+  end
+
   def details
     return {
       name: @name,
