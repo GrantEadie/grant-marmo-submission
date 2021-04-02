@@ -60,10 +60,10 @@ class Artist
     end
   end
 
-  def delete_song(song_name)
-    @songs.each do |song, index|
+  def remove_song(song_name)
+    @songs.each_with_index do |song, i|
       if song.details[:name] == song_name
-        @songs.delete_at(index)
+        @songs.delete_at(i)
       end
     end
   end

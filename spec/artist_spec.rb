@@ -66,4 +66,13 @@ describe Artist do
         expect(artist.details[:featured_song_id]).to eq song2.id
       end
     end
+
+    context 'when remove_song is called' do 
+      it('will remove song from the @songs array of the artist') do 
+        artist.add_song(song1)
+        artist.add_song(song2)
+        artist.remove_song("Bluish")
+        expect(artist.details[:songs]).to(eq([song2]))
+      end
+    end
 end
