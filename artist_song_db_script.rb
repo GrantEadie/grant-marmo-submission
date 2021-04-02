@@ -102,7 +102,13 @@ while run_app
       puts "- " + artist.details[:name] + "\n"
     end
   end
-
+  
+  if user_option == '4'
+    puts "\n\n"
+    song_db.each do |song|
+      puts "- #{song.details[:name]} by #{song.details[:artist]}\n"
+    end
+  end
 
 
 
