@@ -28,7 +28,8 @@ $option_four = " \n  4 - See a list of songs"
 $option_five = " \n  5 - See Artist details"
 $option_six = " \n  6 - See Song details"
 $option_seven = " \n  7 - Set featured song for an Artist \n"
-$option_eight = " \n  8 - exit \n\n"
+$option_eight = " \n  8 - Remove song from artist \n\n"
+$option_nine = " \n  9 - Exit \n\n"
 $success = "Success!"
 $selected_artist = "\n  You selected MAKE A NEW ARTIST \n\nArtist Name: \n"
 $created_artist = " You created a new artist called "
@@ -38,6 +39,9 @@ $enter_artist_name = "\n Please enter the name of the artist you want to view"
 $enter_song_name = "\n Please enter the name of the song you want to view"
 $enter_artist_for_feature = "\n Select the artist you want to change the featured song of. \n\n Artist Name: "
 $enter_song_for_feature = "\n select a song for a feature"
+$enter_artist_for_song_removal = "\n Select the artist you want to remove a song from \n\n"
+$enter_song_for_removal = "\n Select the song for removal \n\n"
+
 
 # functions
 
@@ -67,6 +71,7 @@ def create_new_song()
     $artist_db.each do |artist|
       if song_artist == artist.details[:name]
         artist.add_song(new_song)
+        puts artist.details
         found_artist = true
       end
     end
@@ -74,6 +79,7 @@ def create_new_song()
     if !found_artist
       $artist_db.push(Artist.new(song_artist))
       puts "didn't find an artist for this song, so I created a new one :)"
+      puts $artist_db[-1].details
     end
 
     puts "\n\n\n" + $success + $created_song + song_name
@@ -125,6 +131,20 @@ def set_featured_song()
       end
       song_name = gets.chomp
       artist.set_featured_song(song_name)
+      puts artist.details
+    end
+  end
+end
+
+def remove_song()
+  puts $enter_artist_for_song_removal 
+  artist_name = gets.chomp
+  $artist_db.each do |artist|
+    if artist_name == artist.details[:name]
+      puts $enter_song_for_removal
+      song_name = gets.chomp
+      artist.remove_song(song_name)
+      puts artist.details
     end
   end
 end
@@ -141,7 +161,8 @@ while run_app
         user_option != "5" &&
         user_option != "6" &&
         user_option != "7" &&
-        user_option != "8"
+        user_option != "8" &&
+        user_option != "9"
     puts $welcome
 
     puts  $option_one +
@@ -151,7 +172,8 @@ while run_app
           $option_five +
           $option_six +
           $option_seven +
-          $option_eight
+          $option_eight +
+          $option_nine
 
     user_option = gets.chomp
   end
@@ -186,7 +208,11 @@ while run_app
     set_featured_song
   end
 
-  if user_option = '8'
+  if user_option == '8'
+    remove_song
+  end
+
+  if user_option == '9'
     puts "BYE!"
     run_app = false
   end
