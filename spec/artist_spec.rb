@@ -56,4 +56,14 @@ describe Artist do
         expect(artist.details[:featured_song_id]).to eq song1.id
       end
     end
+
+    context 'when set_featured_song is called multiple times' do 
+      it('will overwrite previously set featured song') do 
+        artist.add_song(song1)
+        artist.add_song(song2)
+        artist.set_featured_song("Bluish")
+        artist.set_featured_song("My Girls")
+        expect(artist.details[:featured_song_id]).to eq song2.id
+      end
+    end
 end
