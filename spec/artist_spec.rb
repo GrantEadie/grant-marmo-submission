@@ -17,4 +17,18 @@ describe Artist do
       expect(artist.add_song(song1)).to(eq([song1]))
     end
   end
+
+  context 'when a new song has been added' do
+    it('is reflected in the artist profile') do 
+      artist.add_song(song1)
+      expect(artist.details).to(eq({
+        :name=>"Animal Collective",
+        :featured_song_id => "",
+        :song_count => 1,
+        :top_genres => ["Experimental"],
+        :songs => [song1],
+        :genres => ["Experimental"]
+      }))
+      end
+    end
 end
