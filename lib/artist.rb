@@ -29,10 +29,26 @@ class Artist
     }
   end
 
+  def set_top_genres
+    @top_genres = []
+    genre_count = Hash.new(0)
+    
+    # Creates a key, value pair for genre name and the amount of times it appears in the @genre array
+    @genres.each {|genre| genre_count[genre] += 1}
+
+    # Creates an array with the most frequent items first
+    genre_sorted = genre_count.sort_by { |genre, number| number}.reverse()
+
+    # Uses the first three elements in the array and places them in @top_genres without their designated number pair
+    genre_sorted.take(3).each {|genre, number|
+    @top_genres.push(genre)
+    }
+  end
+
   def add_song(song)
     @song_count += 1
     @genres.push(song.details[:genre])
-    # set_top_genres
+    set_top_genres
     @songs.push(song)
   end
 
