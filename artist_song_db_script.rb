@@ -87,6 +87,48 @@ def list_artists()
   end
 end
 
+def list_songs()
+  puts "\n\n"
+  $song_db.each do |song|
+    puts "- #{song.details[:name]} by #{song.details[:artist]}\n"
+  end
+end
+
+def detail_artist()
+  puts "\n Please enter the name of the artist you want to view"
+  artist_name = gets.chomp
+  $artist_db.each do |artist|
+    if artist.details[:name] == artist_name
+      puts artist.details
+    end
+  end
+end
+
+def detail_song()
+  puts "\n Please enter the name of the song you want to view"
+  song_name = gets.chomp
+  $song_db.each do |song|
+    if song.details[:name] == song_name
+      puts song.details
+    end
+  end
+end
+
+def set_featured_song()
+  puts $enter_artist_for_feature
+  artist_name = gets.chomp
+  $artist_db.each do |artist|
+    if artist.details[:name] == artist_name
+      puts $enter_song_for_feature
+      artist.details[:songs].each do |song|
+        puts song.details[:name]
+      end
+      song_name = gets.chomp
+      artist.set_featured_song(song_name)
+    end
+  end
+end
+
 
 while run_app
   user_option = ""
@@ -129,44 +171,23 @@ while run_app
   end
 
   if user_option == "4"
-    puts "\n\n"
-    $song_db.each do |song|
-      puts "- #{song.details[:name]} by #{song.details[:artist]}\n"
-    end
+    list_songs
   end
 
   if user_option == "5"
-    puts "\n Please enter the name of the artist you want to view"
-    artist_name = gets.chomp
-    $artist_db.each do |artist|
-      if artist.details[:name] == artist_name
-        puts artist.details
-      end
-    end
+    detail_artist
   end
 
   if user_option == '6'
-    puts "\n Please enter the name of the song you want to view"
-    song_name = gets.chomp
-    $song_db.each do |song|
-      if song.details[:name] == song_name
-        puts song.details
-      end
-    end
+    detail_song
   end
 
   if user_option == '7'
-    puts $enter_artist_for_feature
-    artist_name = gets.chomp
-    $artist_db.each do |artist|
-      if artist.details[:name] == artist_name
-        puts $enter_song_for_feature
-        artist.details[:songs].each do |song|
-          puts song.details[:name]
-        end
-        song_name = gets.chomp
-        artist.set_featured_song(song_name)
-      end
-    end
+    set_featured_song
+  end
+
+  if user_option = '8'
+    puts "BYE!"
+    run_app = false
   end
 end
