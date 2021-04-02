@@ -32,8 +32,8 @@ class Artist
   def add_song(song)
     @song_count += 1
     @genres.push(song.details[:genre])
-    set_top_genres
+    # set_top_genres
     @songs.push(song)
   end
-  
+
 end
