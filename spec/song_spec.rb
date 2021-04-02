@@ -9,4 +9,14 @@ describe Song do
       expect(song.id.is_a? String).to be true
     end
   end
+
+  context 'when the details method is called' do 
+    it('will return the song name, artist, and genre') do 
+      expect(song.details).to(eq({
+        :genre => "Experimental",
+        :name => "My Girls",
+        :artist => "Animal Collective"
+      }))
+    end
+  end
 end
