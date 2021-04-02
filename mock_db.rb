@@ -3,7 +3,7 @@ require('./lib/song')
 
 class Database 
   def initialize()
-    
+
     @artists = [
       Artist.new("Animal Collective"), 
       Artist.new("Gold Panda"), 
@@ -24,6 +24,14 @@ class Database
       Song.new("Rough Gem", "Islands", "Indie"),
       Song.new("Swans", "Islands", "Indie Rock")
     ]
+
+    @songs.each do |song|
+      @artists.each do |artist|
+        if song.details[:artist] == artist.details[:name]
+          artist.add_song(song)
+        end
+      end
+    end
   end
 
   def artists
