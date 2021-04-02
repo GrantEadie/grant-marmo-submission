@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
+require('./mock_db')
 require('./lib/artist')
 require('./lib/song')
 
-# State Holders
 run_app = true
-artist_db = []
-song_db = []
+db = Database.new()
+
+# Mock DB
+artist_db = db.artists
+song_db = db.songs
 
 # Nav text
 _welcome = "\n Welcome to the Artist and Song database, what would you like to do? (type the number of the option)\n\n"
@@ -71,6 +74,7 @@ while run_app
     end
   end
 
+  # Make a new song
   if user_option == '2'
     song_name = ""
     while song_name == ""
@@ -92,6 +96,14 @@ while run_app
     end
   end
 
-  # Make a new song
+  if user_option == '3'
+    puts "\n\n"
+    artist_db.each do |artist|
+      puts "- " + artist.details[:name] + "\n"
+    end
+  end
+
+
+
 
 end
