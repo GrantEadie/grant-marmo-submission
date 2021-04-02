@@ -10,6 +10,15 @@ db = Database.new()
 $artist_db = db.artists
 $song_db = db.songs
 
+# Sort current songs
+$song_db.each do |song|
+  $artist_db.each do |artist|
+    if song.details[:artist] == artist.details[:name]
+      artist.add_song(song)
+    end
+  end
+end
+
 # Nav text
 $welcome = "\n Welcome to the Artist and Song database, what would you like to do? (type the number of the option)\n\n"
 $option_one = "  1 - create a new artist"
@@ -43,7 +52,39 @@ def create_new_artist()
 end
 
 def create_new_song()
+  song_name = ""
+  while song_name == ""
+    puts $selected_song
+    song_name = gets.chomp
+    puts "\nSong Artist: \n"
+    song_artist = gets.chomp
+    puts "\nSong Genre: \n"
+    song_genre = gets.chomp
+    new_song = Song.new(song_name, song_artist, song_genre)
+    $song_db.push(new_song)
 
+    found_artist = false
+    $artist_db.each do |artist|
+      if song_artist == artist.details[:name]
+        artist.add_song(new_song)
+        found_artist = true
+      end
+    end
+
+    if !found_artist
+      $artist_db.push(Artist.new(song_artist))
+      puts "didn't find an artist for this song, so I created a new one :)"
+    end
+
+    puts "\n\n\n" + $success + $created_song + song_name
+  end
+end
+
+def list_artists() 
+  puts "\n\n"
+  $artist_db.each do |artist|
+    puts "- " + artist.details[:name] + "\n"
+  end
 end
 
 
@@ -80,39 +121,11 @@ while run_app
 
   # Make a new song
   if user_option == "2"
-    song_name = ""
-    while song_name == ""
-      puts $selected_song
-      song_name = gets.chomp
-      puts "\nSong Artist: \n"
-      song_artist = gets.chomp
-      puts "\nSong Genre: \n"
-      song_genre = gets.chomp
-      new_song = Song.new(song_name, song_artist, song_genre)
-      $song_db.push(new_song)
-
-      found_artist = false
-      $artist_db.each do |artist|
-        if song_artist == artist.details[:name]
-          artist.add_song(new_song)
-          found_artist = true
-        end
-      end
-
-      if !found_artist
-        $artist_db.push(Artist.new(song_artist))
-        puts "didn't find an artist for this song, so I created a new one :)"
-      end
-
-      puts "\n\n\n" + $success + $created_song + song_name
-    end
+    create_new_song
   end
 
   if user_option == "3"
-    puts "\n\n"
-    $artist_db.each do |artist|
-      puts "- " + artist.details[:name] + "\n"
-    end
+    list_artists
   end
 
   if user_option == "4"
@@ -138,6 +151,21 @@ while run_app
     $song_db.each do |song|
       if song.details[:name] == song_name
         puts song.details
+      end
+    end
+  end
+
+  if user_option == '7'
+    puts $enter_artist_for_feature
+    artist_name = gets.chomp
+    $artist_db.each do |artist|
+      if artist.details[:name] == artist_name
+        puts $enter_song_for_feature
+        artist.details[:songs].each do |song|
+          puts song.details[:name]
+        end
+        song_name = gets.chomp
+        artist.set_featured_song(song_name)
       end
     end
   end

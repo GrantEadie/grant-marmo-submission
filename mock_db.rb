@@ -25,13 +25,9 @@ class Database
       Song.new("Swans", "Islands", "Indie Rock")
     ]
 
-    @songs.each do |song|
-      @artists.each do |artist|
-        if song.details[:artist] == artist.details[:name]
-          artist.add_song(song)
-        end
-      end
-    end
+    # sorts songs into their designated artists
+
+    
   end
 
   def artists
